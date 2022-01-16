@@ -7,6 +7,9 @@ speak_data= "";
 to_number= "";
 
 draw_kiwi = "";
+function preload(){
+    kiwi = loadImage("kiwi.png");
+}
 
 var speechRecognition=window.webkitSpeechRecognition;
 
@@ -18,9 +21,9 @@ function start(){
     
 }
 
-recognition.onresult=function(event){
+recognition.onresult = function(event){
     console.log(event);
-    var content=event.results[0][0].transcript;
+     content=event.results[0][0].transcript;
 
     document.getElementById("status").innerHTML="The Speech has been recognized as: "+content;
     to_number = Number(content);
@@ -41,21 +44,19 @@ function setup(){
   canvas.position(0,150);
 }
 
-function draw()
-{
+function draw() {
     if(draw_kiwi == "set")
     {
-        document.getElementById("status").innerHTML= to_number + " kiwi drawn";
-        draw_kiwi= "";
-        speak_data= to_number+" kiwis Drawn";
-        speak();
-        for(var i = 1; i <= to_number; i++){
-            x = Math.floor(Math.random()*700);
-            y = Math.floor(Math.random()*400);
-            image(kiwi, x, y, 50, 50);
-        }
+      for(var i = 1; i <= to_number; i++)
+      {
+        x = Math.floor(Math.random() * 700);
+        y = Math.floor(Math.random() * 400);
+        image(kiwi, x, y, 50, 50)
+      }
+      document.getElementById("status").innerHTML = to_number + " kiwis drawn";
+      draw_kiwi = "";
     }
-}
+  }
 
 function speak(){
   var synth = window.speechRecognition;
@@ -65,7 +66,4 @@ function speak(){
   synth.speak(utterThis);
 
   speak_data = "";
-}
-function preload(){
-    kiwi = loadImage("kiwi.png");
 }
